@@ -1,0 +1,1028 @@
+{
+  "paragraphs": [
+    {
+      "title": "",
+      "text": "%pyspark\nfrom pyspark import SparkFiles\n# Load in luggage.csv from S3 into a DataFrame\nurl \u003d \"https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Luggage_v1_00.tsv.gz\"\nspark.sparkContext.addFile(url)\n\nluggage_df \u003d spark.read.option(\"header\", \"true\").csv(\"s3a://amazon-reviews-pds/tsv/amazon_reviews_us_Luggage_v1_00.tsv.gz\", inferSchema\u003dTrue, sep\u003d\"\\t\")\nluggage_df.show(5)\nluggage_df.count()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:18:24 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|marketplace|customer_id|     review_id|product_id|product_parent|       product_title|product_category|star_rating|helpful_votes|total_votes|vine|verified_purchase|     review_headline|         review_body|        review_date|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|         US|   40884699| R9CO86UUJCAW5|B00VGTN02Y|     786681372|Teenage Mutant Ni...|         Luggage|          3|            0|          0|   N|                Y|my review of this...|my review of this...|2015-08-31 00:00:00|\n|         US|   23208852|R3PR8X6QGVJ8B1|B005KIWL0E|     618251799|Kenneth Cole Reac...|         Luggage|          5|            0|          0|   N|                Y|          Five Stars|       Perfect size.|2015-08-31 00:00:00|\n|         US|   17100246|R39BO2819ABUPF|B007UNSHJ6|     810480328|American Touriste...|         Luggage|          4|            0|          0|   N|                Y|            so good.|    So far, so good.|2015-08-31 00:00:00|\n|         US|   13533670|R3ADL7V6EGGEEP|B00WHFNXB4|      20765193|15.5 Inch Purple ...|         Luggage|          4|            0|          0|   N|                Y|          Four Stars|seems nicely made...|2015-08-31 00:00:00|\n|         US|   38541771|R1OXYPBPLVRMI5|B000M5NBYU|     812890709|Port \u0026 Company Zi...|         Luggage|          5|            0|          0|   N|                Y|           Dance Bag|Great bag for all...|2015-08-31 00:00:00|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\nonly showing top 5 rows\n\n348657",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_816521356",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:18:06 AM",
+      "dateFinished": "Dec 16, 2019 2:18:24 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nluggage_df \u003d luggage_df.dropDuplicates()\nluggage_df.count()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:18:35 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "348657",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_462163486",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:18:28 AM",
+      "dateFinished": "Dec 16, 2019 2:18:35 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nluggage_df.printSchema() ",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:18:42 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "root\n |-- marketplace: string (nullable \u003d true)\n |-- customer_id: integer (nullable \u003d true)\n |-- review_id: string (nullable \u003d true)\n |-- product_id: string (nullable \u003d true)\n |-- product_parent: integer (nullable \u003d true)\n |-- product_title: string (nullable \u003d true)\n |-- product_category: string (nullable \u003d true)\n |-- star_rating: integer (nullable \u003d true)\n |-- helpful_votes: integer (nullable \u003d true)\n |-- total_votes: integer (nullable \u003d true)\n |-- vine: string (nullable \u003d true)\n |-- verified_purchase: string (nullable \u003d true)\n |-- review_headline: string (nullable \u003d true)\n |-- review_body: string (nullable \u003d true)\n |-- review_date: timestamp (nullable \u003d true)\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1062643301",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:18:42 AM",
+      "dateFinished": "Dec 16, 2019 2:18:42 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nreview_id_df \u003d luggage_df.select(\"review_id\", \"customer_id\", \"product_id\", \"product_parent\", \"review_date\")",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:18:45 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1991409820",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:18:45 AM",
+      "dateFinished": "Dec 16, 2019 2:18:45 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nimport pandas as pd\npandas_df_review_id \u003d review_id_df.toPandas() ",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:00 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_438431629",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:18:47 AM",
+      "dateFinished": "Dec 16, 2019 2:19:00 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\npandas_df_review_id[\u0027review_date\u0027] \u003d pandas_df_review_id[\u0027review_date\u0027].astype(str)\npandas_df_review_id[\u0027review_date\u0027] \u003d pandas_df_review_id[\u0027review_date\u0027].str.split(\" \", n \u003d 1, expand \u003d True)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:06 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_636463821",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:03 AM",
+      "dateFinished": "Dec 16, 2019 2:19:06 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nspark_df_review_id \u003d spark.createDataFrame(pandas_df_review_id)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:22 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1855350107",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:07 AM",
+      "dateFinished": "Dec 16, 2019 2:19:22 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nspark_df_review_id \u003d spark_df_review_id.withColumn(\"review_date\", spark_df_review_id[\"review_date\"].cast(\"date\"))",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:24 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_16201776",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:24 AM",
+      "dateFinished": "Dec 16, 2019 2:19:24 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df \u003d luggage_df.select(\"product_id\", \"product_title\")",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:26 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_390629095",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:26 AM",
+      "dateFinished": "Dec 16, 2019 2:19:26 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df.count()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:36 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "348657",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1646819",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:28 AM",
+      "dateFinished": "Dec 16, 2019 2:19:36 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df \u003d products_df.dropDuplicates()\nproducts_df.count()\n",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:19:48 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "64594",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_2076519786",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:19:39 AM",
+      "dateFinished": "Dec 16, 2019 2:19:48 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df.select(\"product_id\").distinct().count()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:29:02 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "64589",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-022735_578670523",
+      "dateCreated": "Dec 16, 2019 2:27:35 AM",
+      "dateStarted": "Dec 16, 2019 2:28:51 AM",
+      "dateFinished": "Dec 16, 2019 2:29:02 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df \u003d products_df.dropDuplicates([\"product_id\"])\nproducts_df.count()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:35:53 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "64589",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-023145_1948917778",
+      "dateCreated": "Dec 16, 2019 2:31:45 AM",
+      "dateStarted": "Dec 16, 2019 2:35:42 AM",
+      "dateFinished": "Dec 16, 2019 2:35:53 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nimport pandas as pd\ndf_customers \u003d luggage_df.select(\"customer_id\")\npandas_df_customer \u003d df_customers.toPandas() ",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:36:23 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1926489577",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:14 AM",
+      "dateFinished": "Dec 16, 2019 2:36:23 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nvalue_counts \u003d pandas_df_customer.customer_id.value_counts()",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:36:25 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_713292325",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:25 AM",
+      "dateFinished": "Dec 16, 2019 2:36:25 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\npd_customer_df \u003d pd.DataFrame(value_counts)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:36:26 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_922808307",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:25 AM",
+      "dateFinished": "Dec 16, 2019 2:36:26 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\npd_customer_df \u003d pd_customer_df.reset_index()\npd_customer_df.columns \u003d [\u0027customer_id\u0027, \u0027customer_count\u0027]",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:36:27 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_162579463",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:27 AM",
+      "dateFinished": "Dec 16, 2019 2:36:27 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nvine_df \u003d luggage_df.select(\"review_id\", \"star_rating\", \"helpful_votes\", \"total_votes\", \"vine\")",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:36:28 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1722162961",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:28 AM",
+      "dateFinished": "Dec 16, 2019 2:36:28 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nmode \u003d \"append\"\njdbc_url\u003d\"jdbc:postgresql://\u003cINSERT ENDPOINT\u003e\"\nconfig \u003d {\"user\":\"\u003cINSERT USER\u003e\", \n          \"password\": \"\u003cINSERT PASSWORD\u003e\", \n          \"driver\":\"org.postgresql.Driver\"}",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:42:44 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1666081201",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:36:29 AM",
+      "dateFinished": "Dec 16, 2019 2:36:29 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nspark_df_review_id.write.jdbc(url\u003djdbc_url, table\u003d\u0027review_id_table\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:37:58 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1058313781",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:37:28 AM",
+      "dateFinished": "Dec 16, 2019 2:37:58 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027products\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:38:43 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_722798073",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:37:58 AM",
+      "dateFinished": "Dec 16, 2019 2:38:43 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nvine_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027vine_table\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:39:44 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_2036975212",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:38:43 AM",
+      "dateFinished": "Dec 16, 2019 2:39:44 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nspark_customers_df \u003d spark.createDataFrame(pd_customer_df)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:39:51 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_1190823513",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:39:44 AM",
+      "dateFinished": "Dec 16, 2019 2:39:51 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nspark_customers_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027customers\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:40:16 AM",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-002026_630346224",
+      "dateCreated": "Dec 16, 2019 12:20:26 AM",
+      "dateStarted": "Dec 16, 2019 2:39:51 AM",
+      "dateFinished": "Dec 16, 2019 2:40:16 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "",
+      "user": "",
+      "dateUpdated": "Dec 16, 2019 2:37:37 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-023737_1614083138",
+      "dateCreated": "Dec 16, 2019 2:37:37 AM",
+      "dateStarted": "Dec 16, 2019 2:42:52 AM",
+      "dateFinished": "Dec 16, 2019 2:42:52 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    }
+  ],
+  "name": "big-data-2",
+  "id": "7b02bb8d0fd046d083ef532ada767c7b",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {},
+  "info": {}
+}
