@@ -9,10 +9,12 @@ Used ZEPL notebooks to ETL two datasets for Amazon reviews. Luggage and watches 
 
 ## Pipeline
 1. Loaded data file
+
 2. Transformations
-  * Dropped duplicate records
-  * Converted date-time to date format
-  * Dropped records with repeated product_id
-  * Filtered columns to create desired dataframes
+    * SDropped duplicate records
+    * SConverted date-time to date format
+    * SDropped records with repeated product_id
+    * SFiltered columns to create desired dataframes
+    
 3. Load
-  * schema
+    * Sschema
