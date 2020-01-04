@@ -1,4 +1,4 @@
-## big-data-challenge
+## Big Data Challenge
 Used ZEPL notebooks to ETL two datasets for Amazon reviews. Luggage and watches were analyzed and transformed to fit the given schema file using pyspark. Then the dataframes were loaded into an RDS instance using AWS.
 
 
@@ -10,9 +10,9 @@ Used ZEPL notebooks to ETL two datasets for Amazon reviews. Luggage and watches 
 ## Pipeline
 1. Loaded data file
 2. Transformations
-* Dropped duplicate records
-* Converted date-time to date format
-* Dropped records with repeated product_id
-* Filtered columns to create desired dataframes
+  * Dropped duplicate records
+  * Converted date-time to date format
+  * Dropped records with repeated product_id
+  * Filtered columns to create desired dataframes
 3. Load
-* schema
+  * schema
