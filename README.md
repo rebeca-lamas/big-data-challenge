@@ -17,4 +17,4 @@ Used ZEPL notebooks to ETL two datasets for Amazon reviews. Luggage and watches 
     * Filtered columns to create desired dataframes
     
 3. Load
-    * Schema
+    * Schema.sql
